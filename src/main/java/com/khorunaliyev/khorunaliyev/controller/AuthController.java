@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("api/test")
+@RequestMapping("/api/test")
 public class AuthController {
 
     private final AuthService authService;

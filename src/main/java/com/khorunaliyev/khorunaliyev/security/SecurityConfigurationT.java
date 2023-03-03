@@ -23,7 +23,7 @@ public class SecurityConfigurationT{
         http.csrf().disable().cors().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests().antMatchers("api/test/**")
+                .authorizeHttpRequests().antMatchers("/api/test/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
