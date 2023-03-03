@@ -21,9 +21,6 @@ public class AuthController {
     }
     @PostMapping("register")
     public ResponseEntity<RegisterResult> register( @RequestParam( "username") String username, @RequestParam( "password") String password){
-        System.out.println("okokokokokokokkok");
-        System.out.println(username);
-        System.out.println(password);
         return authService.register(username, password);
     }
 
