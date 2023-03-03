@@ -27,7 +27,7 @@ public class AuthController {
         return authService.register(username, password);
     }
 
-    @GetMapping("student/get/1")
+    @GetMapping("student")
     public ResponseEntity<Student> getStudent(){
         Student student = new Student("Mo'minjon","Yusupov", (short) 12);
         return ResponseEntity.ok(student);
