@@ -36,30 +36,42 @@ public class AuthService {
 
     private final TokenGenerator tokenGenerator;
 
-    public ResponseEntity<RegisterResult> register(String username, String password){
+    public ResponseEntity<RegisterResult> register(String username, String password) {
         boolean isOk = validateUserData(username, password);
-        if(isOk && usersRepository.existsByUsername(username)){
+        if (isOk && usersRepository.existsByUsername(username)) {
 
-                RegisterResult result = new RegisterResult(false,"Bu foydalanuvchi allaqachon ro'yxatdan o'tgan");
-                return ResponseEntity.ok(result);
+            RegisterResult result = new RegisterResult(false, "Bu foydalanuvchi allaqachon ro'yxatdan o'tgan");
+            return ResponseEntity.ok(result);
 
         }
 
-        if(isOk && !usersRepository.existsByUsername(username)){
+        if (isOk && !usersRepository.existsByUsername(username)) {
 
             final Users users = new Users();
             users.setUsername(username.trim());
             users.setPassword(passwordEncoder.encode(password.trim()));
             final Roles roles = rolesRepository.findByName("ROLE_USER").get();
             users.setRoles(Collections.singleton(roles));
-            usersRepository.save(users);
+            Users registeredUser = usersRepository.save(users);
+            if (registeredUser != null) {
 
-            RegisterResult registerResult = new RegisterResult(true, "Foydalanuvchi muvaffaqiyyatli ro'yxatdan o'tdi");
-            return ResponseEntity.ok(registerResult);
+                    final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username.trim(), password.trim()));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    final String token = tokenGenerator.generateToken(authentication);
+
+
+                RegisterResult registerResult = new RegisterResult(true, "Foydalanuvchi muvaffaqiyyatli ro'yxatdan o'tdi", token);
+                return ResponseEntity.ok(registerResult);
+
+            }
+            else{
+                return null;
+            }
         }
         else{
             return null;
         }
+
     }
     public ResponseEntity<LoginResult> login(String username, String password){
         if(validateUserData(username, password)){

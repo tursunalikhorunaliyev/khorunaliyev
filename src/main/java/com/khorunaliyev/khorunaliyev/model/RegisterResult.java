@@ -10,5 +10,10 @@ import lombok.Setter;
 public class RegisterResult {
     private boolean status;
     private String message;
+    private String accessToken;
 
+    public RegisterResult(boolean status, String message) {
+        this.status = status;
+        this.message = message;
+    }
 }
