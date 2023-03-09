@@ -23,6 +23,6 @@ public class District {
 
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "prov_dist", joinColumns = @JoinColumn(name = "province_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "district_id", referencedColumnName = "id"))
+    @JoinTable(name = "prov_dist", joinColumns = @JoinColumn(name = "district_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "province_id", referencedColumnName = "id"))
     private Set<Province> provinces;
 }
