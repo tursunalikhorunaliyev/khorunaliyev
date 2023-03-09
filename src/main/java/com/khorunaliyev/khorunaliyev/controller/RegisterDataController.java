@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,9 +56,11 @@ public class RegisterDataController {
     }
 
     @PostMapping("districts")
-    public void setDistrict(@RequestParam("name") String name){
+    public void setDistrict(@RequestParam("name") String name, @RequestParam("province_id") Long id){
        District district = new District();
        district.setName(name);
+       final Province province = provinceRepository.findById(id).get();
+       district.setProvinces(Collections.singleton(province));
        districtRepository.save(district);
     }
 
