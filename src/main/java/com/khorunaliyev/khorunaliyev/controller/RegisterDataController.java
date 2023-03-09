@@ -41,13 +41,6 @@ public class RegisterDataController {
     }
 
 
-    @GetMapping("prov-dist")
-    public ResponseEntity<Province> getProDist(@RequestParam Long id){
-        Province province = provinceRepository.findById(id).get();
-        return ResponseEntity.ok(province);
-    }
-
-
 
 
     @PostMapping("positions")
