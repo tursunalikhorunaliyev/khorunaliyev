@@ -42,9 +42,9 @@ public class RegisterDataController {
 
 
     @GetMapping("prov-dist")
-    public ResponseEntity<Set<District>> getProDist(@RequestParam Long id){
+    public ResponseEntity<Province> getProDist(@RequestParam Long id){
         Province province = provinceRepository.findById(id).get();
-        return ResponseEntity.ok(province.getDistricts());
+        return ResponseEntity.ok(province);
     }
 
 
