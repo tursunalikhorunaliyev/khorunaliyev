@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -41,9 +42,9 @@ public class RegisterDataController {
 
 
     @GetMapping("prov-dist")
-    public ResponseEntity<Province> getProDist(@RequestParam Long id){
+    public ResponseEntity<Set<District>> getProDist(@RequestParam Long id){
         Province province = provinceRepository.findById(id).get();
-        return ResponseEntity.ok(province);
+        return ResponseEntity.ok(province.getDistricts());
     }
 
 
