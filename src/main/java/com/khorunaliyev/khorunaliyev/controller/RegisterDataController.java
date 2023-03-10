@@ -3,6 +3,7 @@ package com.khorunaliyev.khorunaliyev.controller;
 import com.khorunaliyev.khorunaliyev.entity.District;
 import com.khorunaliyev.khorunaliyev.entity.Position;
 import com.khorunaliyev.khorunaliyev.entity.Province;
+import com.khorunaliyev.khorunaliyev.extra.Viloyatlar;
 import com.khorunaliyev.khorunaliyev.repository.DistrictRepository;
 import com.khorunaliyev.khorunaliyev.repository.PositionRepository;
 import com.khorunaliyev.khorunaliyev.repository.ProvinceRepository;
@@ -40,6 +41,25 @@ public class RegisterDataController {
         return ResponseEntity.ok(districtRepository.findAll());
     }
 
+    @GetMapping("provinces-test")
+    public ResponseEntity<List<Viloyatlar>> getAllProvincesTest(){
+        LinkedList<Viloyatlar> viloyatlars = new LinkedList<>();
+        viloyatlars.add(new Viloyatlar(1 , "Farg'ona"));
+        viloyatlars.add(new Viloyatlar(2, "Andijon"));
+        viloyatlars.add(new Viloyatlar(3, "Namangan"));
+        viloyatlars.add(new Viloyatlar(4, "Samarqand"));
+        viloyatlars.add(new Viloyatlar(5, "Buxoro"));
+        viloyatlars.add(new Viloyatlar(6, "Jizzax"));
+        viloyatlars.add(new Viloyatlar(7, "Xorazm"));
+        viloyatlars.add(new Viloyatlar(8, "Navoiy"));
+        viloyatlars.add(new Viloyatlar(9, "Qashqadaryo"));
+        viloyatlars.add(new Viloyatlar(10, "Sirdaryo"));
+        viloyatlars.add(new Viloyatlar(11, "Surxondaryo"));
+        viloyatlars.add(new Viloyatlar(12, "Toshkent"));
+        viloyatlars.add(new Viloyatlar(13, "Qoraqalpog'iston"));
+
+        return ResponseEntity.ok(viloyatlars);
+    }
 
 
 
