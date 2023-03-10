@@ -19,11 +19,11 @@ public class TApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/api/test/**")
-						.allowedOrigins("*")
+						.allowedOrigins("http://127.0.0.1:5500")
 						.allowedHeaders("Access-Control-Allow-Origin", "*")
 						.allowedHeaders("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS")
 						.allowedHeaders("Access-Control-Allow-Headers", "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range")
-						.maxAge(1728000);
+						.maxAge(8000000);
 			}
 		};
 	}
