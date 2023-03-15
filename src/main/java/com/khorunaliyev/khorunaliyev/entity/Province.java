@@ -22,4 +22,8 @@ public class Province {
     @Column(unique = true, nullable = false)
     private String name;
 
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "prov_dist", joinColumns = @JoinColumn(name = "province_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "district_id", referencedColumnName = "id"))
+    private Set<District> districts;
 }

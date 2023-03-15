@@ -36,7 +36,7 @@ public class AuthService {
 
     private final TokenGenerator tokenGenerator;
 
-    public ResponseEntity<RegisterResult> register(String username, String password) {
+    public ResponseEntity<RegisterResult> register(String username, String password, Long role_id) {
         boolean isOk = validateUserData(username, password);
         if (isOk && usersRepository.existsByUsername(username)) {
 
@@ -50,7 +50,7 @@ public class AuthService {
             final Users users = new Users();
             users.setUsername(username.trim());
             users.setPassword(passwordEncoder.encode(password.trim()));
-            final Roles roles = rolesRepository.findByName("ROLE_USER").get();
+            final Roles roles = rolesRepository.findById(role_id).get();
             users.setRoles(Collections.singleton(roles));
             Users registeredUser = usersRepository.save(users);
             if (registeredUser != null) {

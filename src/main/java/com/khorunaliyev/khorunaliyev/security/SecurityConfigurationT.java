@@ -1,5 +1,6 @@
 package com.khorunaliyev.khorunaliyev.security;
 
+import com.khorunaliyev.khorunaliyev.extra.SecurityVariables;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,7 @@ public class SecurityConfigurationT{
         http.csrf().disable().cors().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests().antMatchers("/api/test/**", "/api/register-info/**")
+                .authorizeHttpRequests().antMatchers(SecurityVariables.URL_DIRECTION+"/test/**", SecurityVariables.URL_DIRECTION+"/register-info/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -1,5 +1,6 @@
 package com.khorunaliyev.khorunaliyev.security;
 
+import com.khorunaliyev.khorunaliyev.extra.SecurityVariables;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,8 +36,8 @@ public class TokenFilter  extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return new AntPathMatcher().match("/api/test/**", request.getServletPath())
-                || new AntPathMatcher().match("/api/register-info/**", request.getServletPath())
+        return new AntPathMatcher().match(SecurityVariables.URL_DIRECTION +"/test/**", request.getServletPath())
+                || new AntPathMatcher().match(SecurityVariables.URL_DIRECTION+"/register-info/**", request.getServletPath())
                 ;
     }
 }

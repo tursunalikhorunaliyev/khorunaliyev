@@ -1,8 +1,8 @@
 package com.khorunaliyev.khorunaliyev.controller;
-
 import com.khorunaliyev.khorunaliyev.entity.District;
 import com.khorunaliyev.khorunaliyev.entity.Position;
 import com.khorunaliyev.khorunaliyev.entity.Province;
+import com.khorunaliyev.khorunaliyev.extra.SecurityVariables;
 import com.khorunaliyev.khorunaliyev.extra.Viloyatlar;
 import com.khorunaliyev.khorunaliyev.repository.DistrictRepository;
 import com.khorunaliyev.khorunaliyev.repository.PositionRepository;
@@ -18,7 +18,7 @@ import java.util.Set;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/register-info")
+@RequestMapping(SecurityVariables.URL_DIRECTION +"/register-info")
 public class RegisterDataController {
 
     final ProvinceRepository provinceRepository;
@@ -81,12 +81,15 @@ public class RegisterDataController {
     public void setDistrict(@RequestParam("name") String name, @RequestParam("province_id") Long id){
        District district = new District();
        district.setName(name);
-       final Province province = provinceRepository.findById(id).get();
-       district.setProvinces(Collections.singleton(province));
-       districtRepository.save(district);
+       final Province province = provinceRepository.findById(id).orElseThrow();
+       province.getDistricts().add(district);
+       provinceRepository.save(province);
     }
 
 
-
+    @GetMapping("prov-dist")
+    public ResponseEntity<Set<District>> getProvDist(@RequestParam Long id){
+        return ResponseEntity.ok(provinceRepository.findById(id).orElseThrow().getDistricts());
+    }
 
 }

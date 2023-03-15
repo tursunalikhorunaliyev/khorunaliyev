@@ -1,5 +1,6 @@
 package com.khorunaliyev.khorunaliyev.controller;
 
+import com.khorunaliyev.khorunaliyev.extra.SecurityVariables;
 import com.khorunaliyev.khorunaliyev.model.LoginResult;
 import com.khorunaliyev.khorunaliyev.model.RegisterResult;
 import com.khorunaliyev.khorunaliyev.model.Student;
@@ -13,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping(SecurityVariables.URL_DIRECTION +"/test")
 public class AuthController {
 
     private final AuthService authService;
@@ -24,14 +25,13 @@ public class AuthController {
         return authService.login(username, password);
     }
     @PostMapping("register")
-    public ResponseEntity<RegisterResult> register( @RequestParam( "username") String username, @RequestParam( "password") String password){
-        return authService.register(username, password);
+    public ResponseEntity<RegisterResult> register(@RequestParam( "username") String username, @RequestParam( "password") String password, @RequestParam("role_id") Long role_id){
+        return authService.register(username, password, role_id);
     }
 
     @GetMapping("student")
-    public ResponseEntity<Student> getStudent(){
-        Student student = new Student("Mo'minjon","Yusupov", (short) 12);
-        return ResponseEntity.ok(student);
+    public ResponseEntity<String> getStudent(){
+        return ResponseEntity.ok("<h1>Hello</h1>");
     }
     @GetMapping("send/email")
     public ResponseEntity<String> sendSmsToEmail(@RequestParam String email, @RequestParam String password){
